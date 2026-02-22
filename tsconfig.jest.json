@@ -1,12 +1,15 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "noEmit": true,
-    "module": "commonjs",
-    "types": ["jest", "node"],
-    "paths": {
-      "@shared/*": ["core/src/*"]
-    }
+    "types": ["node", "jest"]
   },
-  "include": ["core/src", "server/src", "__tests__"]
+  "include": [
+    "__tests__/**/*.ts",
+    "jest.setup.ts",
+    "core/src/**/*.ts",
+    "server/src/**/*.ts",
+    "ui-vue/src/**/*.ts",
+    "ui-vue/src/**/*.vue",
+    "global.d.ts"
+  ]
 }

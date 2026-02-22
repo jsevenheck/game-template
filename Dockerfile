@@ -8,10 +8,17 @@ ENV CI=true
 # Build stage
 FROM base AS builder
 
-COPY . .
+COPY package.json pnpm-lock.yaml ./
 RUN --mount=type=cache,id=pnpm-store,target=/pnpm/store \
     pnpm config set store-dir /pnpm/store && \
-    pnpm install --prod=false --no-frozen-lockfile
+    pnpm install --frozen-lockfile --prod=false
+
+COPY . .
+
+# ui-vue is not part of a pnpm workspace in this repo, so install it explicitly.
+RUN --mount=type=cache,id=pnpm-store,target=/pnpm/store \
+    pnpm config set store-dir /pnpm/store && \
+    pnpm -C ui-vue install --prod=false --no-frozen-lockfile
 
 # Build server and client
 RUN pnpm run build
@@ -20,10 +27,10 @@ RUN pnpm run build
 FROM base AS runtime
 ENV NODE_ENV=production
 
-COPY package.json ./
+COPY package.json pnpm-lock.yaml ./
 RUN --mount=type=cache,id=pnpm-store,target=/pnpm/store \
     pnpm config set store-dir /pnpm/store && \
-    pnpm install --prod --no-frozen-lockfile
+    pnpm install --prod --frozen-lockfile
 
 COPY --from=builder /app/dist ./dist
 

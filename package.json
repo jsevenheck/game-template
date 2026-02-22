@@ -28,7 +28,7 @@
     "start": "node dist/standalone-server/standalone-server/src/index.js",
     "start:standalone": "node dist/standalone-server/standalone-server/src/index.js",
     "install:standalone": "pnpm -C standalone-server install && pnpm -C standalone-web install",
-    "install:all": "pnpm install",
+    "install:all": "pnpm install && pnpm run install:standalone",
     "test": "jest",
     "test:e2e": "playwright test",
     "lint": "eslint . --max-warnings 0",

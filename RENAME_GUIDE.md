@@ -26,6 +26,8 @@ When starting a new game from this template, do a global find and replace for th
 | `standalone-web/index.html`             | `<title>`                                      |
 | `standalone-web/package.json`           | `name`                                         |
 | `standalone-server/package.json`        | `name`                                         |
+| `hub.config.json`                       | `serverDependencies` (keep/extend as needed)   |
+| `.github/workflows/sync-to-hub.yml`     | `game-id` field (replace `YOUR_GAME_ID`)       |
 
 ## After renaming
 

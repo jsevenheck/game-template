@@ -9,7 +9,7 @@ coverage/
 playwright-report/
 settings.local.json
 
-# Nested lockfiles (only at monorepo root)
+# Nested lockfiles (should only exist at monorepo root when moved to game-hub)
 ui-vue/pnpm-lock.yaml
 standalone-web/pnpm-lock.yaml
 standalone-server/pnpm-lock.yaml

@@ -2,12 +2,12 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "noEmit": false,
-    "module": "commonjs",
     "outDir": "dist",
     "rootDir": ".",
-    "declaration": true,
-    "sourceMap": true
+    "types": ["node"],
+    "module": "CommonJS",
+    "moduleResolution": "Node",
+    "target": "ES2022"
   },
-  "include": ["core/src", "server/src", "standalone-server/src"],
-  "exclude": ["node_modules", "dist", "dist-lib", "ui-vue", "__tests__", "e2e"]
+  "include": ["server/src/**/*.ts", "core/src/**/*.ts"]
 }

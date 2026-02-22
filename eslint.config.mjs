@@ -4,11 +4,12 @@ import pluginVue from 'eslint-plugin-vue';
 import prettier from 'eslint-plugin-prettier/recommended';
 
 export default tseslint.config(
+  // Base configs
   js.configs.recommended,
   ...tseslint.configs.recommended,
   ...pluginVue.configs['flat/recommended'],
 
-  // Prettier integration (must be last before overrides)
+  // Prettier integration (must be last)
   prettier,
 
   // Global ignores
@@ -19,7 +20,7 @@ export default tseslint.config(
       '**/node_modules/**',
       '**/coverage/**',
       '**/test-results/**',
-      '**/playwright-report/**',
+      '**/game-export/**',
       '**/*.config.js',
       '**/*.config.ts',
       '**/*.config.mjs',
@@ -46,9 +47,9 @@ export default tseslint.config(
     },
   },
 
-  // Server files — Node.js environment
+  // Server files - Node.js environment
   {
-    files: ['server/**/*.ts', 'standalone-server/**/*.ts', 'scripts/**/*.js', 'scripts/**/*.mjs'],
+    files: ['server/**/*.ts', 'standalone-server/**/*.ts', 'scripts/**/*.js'],
     languageOptions: {
       globals: {
         console: 'readonly',
@@ -66,11 +67,12 @@ export default tseslint.config(
       },
     },
     rules: {
-      '@typescript-eslint/no-require-imports': 'off',
+      '@typescript-eslint/no-require-imports': 'off', // Allow require() in CommonJS
+      'no-unsafe-finally': 'warn', // Downgrade to warning
     },
   },
 
-  // Vue files — Browser environment
+  // Vue files - Browser environment
   {
     files: ['**/*.vue', 'ui-vue/**/*.ts', 'standalone-web/**/*.ts'],
     languageOptions: {
@@ -94,6 +96,8 @@ export default tseslint.config(
     rules: {
       'vue/multi-word-component-names': 'off',
       'vue/require-default-prop': 'off',
+      'vue/attributes-order': 'warn', // Downgrade to warning
+      'no-unsafe-finally': 'warn', // Downgrade to warning (legitimate pattern in some cases)
       '@typescript-eslint/no-unused-vars': [
         'warn',
         { argsIgnorePattern: '^_', varsIgnorePattern: '^_' },
@@ -101,7 +105,7 @@ export default tseslint.config(
     },
   },
 
-  // Test files — relaxed rules
+  // Test files - relaxed rules
   {
     files: ['**/__tests__/**', '**/*.test.ts', '**/*.spec.ts', '**/e2e/**'],
     languageOptions: {
